@@ -164,7 +164,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 225455285}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 36c604e054ebd36498ff54db23449597, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -249,7 +249,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 661036173}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4df3a51f814ea154090ecbc06f6aea1e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -347,9 +347,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad87ffc549c30ff49a47c5508d5a4054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minXLimmit: 10.75
+  minXLimmit: 21.5
   maxXLimmit: 100
-  minYLimmit: 4
+  minYLimmit: 9
   maxYLimmit: 100
 --- !u!81 &1508738598
 AudioListener:
@@ -392,7 +392,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -415,7 +415,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1508738596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.75, y: 4, z: -10}
+  m_LocalPosition: {x: 21.5, y: 9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -477,7 +477,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1975396588}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 36c604e054ebd36498ff54db23449597, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
