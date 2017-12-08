@@ -19,7 +19,11 @@ public class Camera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        //Camera follows player
         gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, cameraDistance);
+
+        //Set limmits to how far the camera is able to folow the player
         if (gameObject.transform.position.x < minXLimmit)
         {
             gameObject.transform.position = new Vector3(minXLimmit, gameObject.transform.position.y, cameraDistance);
