@@ -36,15 +36,15 @@ public class Player : MonoBehaviour {
     {
         //Controls
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow) && !(Input.GetKey(KeyCode.RightArrow)))
             {
                 rb.AddForce(new Vector3(-speed, rb.velocity.y, 0) - rb.velocity, ForceMode.VelocityChange);
             }
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow) && !(Input.GetKey(KeyCode.LeftArrow)))
             {
                 rb.AddForce(new Vector3(speed, rb.velocity.y, 0) - rb.velocity, ForceMode.VelocityChange);
             }
-            if (!((Input.GetKey(KeyCode.RightArrow)) || (Input.GetKey(KeyCode.LeftArrow))))
+            if (!((Input.GetKey(KeyCode.RightArrow)) || (Input.GetKey(KeyCode.LeftArrow))) || ((Input.GetKey(KeyCode.RightArrow)) && (Input.GetKey(KeyCode.LeftArrow))))
             {
                 rb.AddForce(new Vector3(0, rb.velocity.y, 0) - rb.velocity, ForceMode.VelocityChange);
             }
