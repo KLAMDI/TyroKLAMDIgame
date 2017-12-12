@@ -679,7 +679,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 661036173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 2, z: 0}
+  m_LocalPosition: {x: 3, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -711,16 +711,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfc06a950ddfd04c893b98a8be5d2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
-  minSpeed: 0.1
+  test: 0
+  speed: 20
+  minSpeed: 0.2
   maxSpeed: 15
-  drag: 7
-  airDragTest: 0
-  jumpSpeed: 12
+  drag: 20
+  airDragTest: 1
+  jumpSpeed: 8
   airJumpMultiplier: 0.75
   maxAirJumps: 0
   gravity: 8
   wallGravity: 2
+  fallingMultiplier: 2.5
+  lowJumpMultiplier: 2
 --- !u!65 &661036180
 BoxCollider:
   m_ObjectHideFlags: 0

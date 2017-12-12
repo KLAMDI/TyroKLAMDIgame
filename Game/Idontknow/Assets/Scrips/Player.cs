@@ -25,6 +25,8 @@ public class Player : MonoBehaviour {
     //gravity
     public float gravity;
     public float wallGravity;
+    public float fallingMultiplier;
+    public float lowJumpMultiplier;
     
     //collision ditection
     private Collider col;
@@ -44,8 +46,8 @@ public class Player : MonoBehaviour {
     //Checks if the player in on the ground using 5 raycast to minimize the area not checked and returns a boolian
     bool IsGrounded(){
         bool OnGround1 = Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
-        bool OnGround2 = Physics.Raycast(new Vector3(transform.position.x - transform.localScale.x/2, transform.position.y, transform.position.z), -Vector3.up, distToGround + 0.1f);
-        bool OnGround3 = Physics.Raycast(new Vector3(transform.position.x + transform.localScale.x/2, transform.position.y, transform.position.z), -Vector3.up, distToGround + 0.1f);
+        bool OnGround2 = Physics.Raycast(new Vector3(transform.position.x - transform.localScale.x/2 + 0.01f, transform.position.y, transform.position.z), -Vector3.up, distToGround + 0.1f);
+        bool OnGround3 = Physics.Raycast(new Vector3(transform.position.x + transform.localScale.x/2 - 0.01f, transform.position.y, transform.position.z), -Vector3.up, distToGround + 0.1f);
         bool OnGround4 = Physics.Raycast(new Vector3(transform.position.x - transform.localScale.x / 4, transform.position.y, transform.position.z), -Vector3.up, distToGround + 0.1f);
         bool OnGround5 = Physics.Raycast(new Vector3(transform.position.x + transform.localScale.x / 4, transform.position.y, transform.position.z), -Vector3.up, distToGround + 0.1f);
         bool OnGround = (OnGround1 || OnGround2 || OnGround3 || OnGround4 || OnGround5);
@@ -71,19 +73,30 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        //Controls
+        //physics
         {
             //Simulate gravity for player only 
-            if (!IsGrounded())
+            //Gravity on a wall is lower while moving down
+            if ((OnLeftWall() || OnRightWall()) && (rb.velocity.y < 0))
             {
-                //Gravity on a wall is lower while moving down
-                if ((OnLeftWall() || OnRightWall()) && (rb.velocity.y < 0))
+                rb.AddForce(0, -wallGravity, 0);
+            }
+            else
+            {
+                //Change gravity strenght to make jumps less floaty
+                if (rb.velocity.y < 0)
                 {
-                    rb.AddForce(0, -wallGravity, 0);
+                    rb.AddForce(0, -gravity * fallingMultiplier, 0);
                 }
-                else
+                //Holding up makes you jump higher
+                else if (Input.GetKey(KeyCode.UpArrow))
                 {
                     rb.AddForce(0, -gravity, 0);
+                }
+                //Higher gravity when not holding up
+                else
+                {
+                    rb.AddForce(0, -gravity * lowJumpMultiplier, 0);
                 }
             }
 
@@ -95,22 +108,6 @@ public class Player : MonoBehaviour {
             if (rb.velocity.x < -maxSpeed)
             {
                 rb.velocity = new Vector3(-maxSpeed, rb.velocity.y, 0);
-            }
-
-            //Reset doublejumps when on the ground
-            if (IsGrounded())
-            {
-                airJumps = maxAirJumps;
-            }
-
-            //Movement controls
-            if (Input.GetKey(KeyCode.LeftArrow) && !(Input.GetKey(KeyCode.RightArrow)))
-            {
-                rb.AddForce(-speed, 0, 0);
-            }
-            if (Input.GetKey(KeyCode.RightArrow) && !(Input.GetKey(KeyCode.LeftArrow)))
-            {
-                rb.AddForce(speed, 0, 0);
             }
 
             //If no or both directions are pressed slow down using drag
@@ -134,6 +131,25 @@ public class Player : MonoBehaviour {
                         rb.AddForce(drag, 0, 0);
                     }
                 }
+            }
+        }
+
+        //Reset doublejumps when on the ground
+        if (IsGrounded())
+        {
+            airJumps = maxAirJumps;
+        }
+
+        //Controls
+        {
+            //Movement controls
+            if (Input.GetKey(KeyCode.LeftArrow) && !(Input.GetKey(KeyCode.RightArrow)))
+            {
+                rb.AddForce(-speed, 0, 0);
+            }
+            if (Input.GetKey(KeyCode.RightArrow) && !(Input.GetKey(KeyCode.LeftArrow)))
+            {
+                rb.AddForce(speed, 0, 0);
             }
 
             //Press up to jump
@@ -168,7 +184,7 @@ public class Player : MonoBehaviour {
                     }
                 }
             }
-            //While in the air press down to cancel jump and fast fall down
+            //While in the air press down to cancel jump and fall down faster
             if ((Input.GetKeyDown(KeyCode.DownArrow)) && !IsGrounded())
             {
                 //Limmit the downwards speed achieved with downfall
