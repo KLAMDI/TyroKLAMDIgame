@@ -35,7 +35,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //Get the nessesarie components
+        //Get the nessesary components
         rb = gameObject.GetComponent<Rigidbody>();
         col = gameObject.GetComponent<Collider>();
         // get the distance to ground
@@ -43,7 +43,7 @@ public class Player : MonoBehaviour {
         distToWall = col.bounds.extents.x;
     }
 
-    //Checks if the player in on the ground using 5 raycast to minimize the area not checked and returns a boolian
+    //Checks if the player is on the ground using 5 raycast to minimize the area not checked and returns a boolean
     bool IsGrounded(){
         bool OnGround1 = Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
         bool OnGround2 = Physics.Raycast(new Vector3(transform.position.x - transform.localScale.x/2 + 0.01f, transform.position.y, transform.position.z), -Vector3.up, distToGround + 0.1f);
@@ -71,7 +71,7 @@ public class Player : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         //physics
         {
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour {
             }
             else
             {
-                //Change gravity strenght to make jumps less floaty
+                //Change gravity strength to make jumps less floaty
                 if (rb.velocity.y < 0)
                 {
                     rb.AddForce(0, -gravity * fallingMultiplier, 0);
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour {
                 }
             }
 
-            //Limmit the speed a player can move at
+            //Limit the speed a player can move at
             if (rb.velocity.x > maxSpeed)
             {
                 rb.velocity = new Vector3(maxSpeed, rb.velocity.y, 0);
@@ -155,8 +155,8 @@ public class Player : MonoBehaviour {
             //Press up to jump
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                //Check if the player not on a wall in the air or if the player in on the ground
-                if (!(OnLeftWall() || OnRightWall()) || IsGrounded()){
+                //Check if the player not on a wall is in the air or if the player is on the ground
+                if (!(OnLeftWall() || OnRightWall()) || IsGrounded()) {
                     //Jumping while on the ground is higher
                     if (IsGrounded())
                     {
@@ -187,12 +187,12 @@ public class Player : MonoBehaviour {
             //While in the air press down to cancel jump and fall down faster
             if ((Input.GetKeyDown(KeyCode.DownArrow)) && !IsGrounded())
             {
-                //Limmit the downwards speed achieved with downfall
+                //Limit the downwards speed achieved with downfall
                 if (rb.velocity.y > (-3 * jumpSpeed))
                 {
                     rb.velocity = new Vector3(rb.velocity.x, -3 * jumpSpeed, 0);
                 }
             }
         }
-    }
+     }
 }
