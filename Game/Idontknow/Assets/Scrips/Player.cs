@@ -194,5 +194,17 @@ public class Player : MonoBehaviour {
                 }
             }
         }
-     }
+
+        //Instantaneous turn around
+        if (!((Input.GetKey(KeyCode.RightArrow))) && rb.velocity.x > minSpeed && Input.GetKey(KeyCode.LeftArrow))
+        {
+            //rb.velocity = new Vector3(rb.velocity.y, -rb.velocity.x, 0);
+            rb.AddForce(2 * -drag, 0, 0);
+        }
+
+        if (!((Input.GetKey(KeyCode.LeftArrow))) && rb.velocity.x > -minSpeed && Input.GetKey(KeyCode.RightArrow))
+        {
+            rb.AddForce(2 * drag, 0, 0);
+        }
+    }
 }
