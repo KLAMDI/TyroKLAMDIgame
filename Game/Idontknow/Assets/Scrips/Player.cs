@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     public float speed;
     public float minSpeed;
     public float maxSpeed;
+    public bool instantTurn;
 
     //drag
     public float drag;
@@ -195,16 +196,19 @@ public class Player : MonoBehaviour {
             }
         }
 
-        //Instantaneous turn around
-        if (!((Input.GetKey(KeyCode.RightArrow))) && rb.velocity.x > minSpeed && Input.GetKey(KeyCode.LeftArrow))
-        {
-            //rb.velocity = new Vector3(rb.velocity.y, -rb.velocity.x, 0);
-            rb.AddForce(-drag, 0, 0);
-        }
+        if (instantTurn == true)
+            {
+                //Instantaneous turn around
+                if (!((Input.GetKey(KeyCode.RightArrow))) && rb.velocity.x > minSpeed && Input.GetKey(KeyCode.LeftArrow))
+                {
+                    //rb.velocity = new Vector3(rb.velocity.y, -rb.velocity.x, 0);
+                    rb.AddForce(-drag, 0, 0);
+                }
 
-        if (!((Input.GetKey(KeyCode.LeftArrow))) && rb.velocity.x < -minSpeed && Input.GetKey(KeyCode.RightArrow))
-        {
-            rb.AddForce(drag, 0, 0);
-        }
+                if (!((Input.GetKey(KeyCode.LeftArrow))) && rb.velocity.x < -minSpeed && Input.GetKey(KeyCode.RightArrow))
+                {
+                    rb.AddForce(drag, 0, 0);
+                }
+            }
     }
 }
