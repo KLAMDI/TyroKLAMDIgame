@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
     public float fallingMultiplier;
     public float lowJumpMultiplier;
     
-    //collision ditection
+    //collision detection
     private Collider col;
     private float distToGround;
     private float distToWall;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour {
         //Get the nessesary components
         rb = gameObject.GetComponent<Rigidbody>();
         col = gameObject.GetComponent<Collider>();
-        // get the distance to ground
+        //Get the distance to ground
         distToGround = col.bounds.extents.y;
         distToWall = col.bounds.extents.x;
     }
