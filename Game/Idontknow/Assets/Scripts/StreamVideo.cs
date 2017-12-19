@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using System.Text.RegularExpressions;
 
 
 /// <summary>
@@ -18,6 +19,7 @@ public class StreamVideo : MonoBehaviour
 {
 
     public VideoClip videoToPlay;
+    public string videoURL;
 
     private VideoPlayer videoPlayer;
     private VideoSource videoSource;
@@ -53,13 +55,30 @@ public class StreamVideo : MonoBehaviour
         audioSource.playOnAwake = false;
         audioSource.Pause();
 
-        //We want to play from video clip not from url
+        if (videoToPlay != null)
+        {
+            //Use clip instead of url
+            videoPlayer.source = VideoSource.VideoClip;
+        }
+        
+        else
+        {
+            // Video clip from Url
+            videoPlayer.source = VideoSource.Url;
 
-        videoPlayer.source = VideoSource.VideoClip;
+            videoURL = Regex.Replace(videoURL, "( )+", "");
 
-        // Vide clip from Url
-        videoPlayer.source = VideoSource.Url;
-        videoPlayer.url = "https://archive.org/download/RickAstleyNeverGonnaGiveYouUp_201603/Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up.mp4";
+            if (videoURL != "")
+            {
+                videoPlayer.url = videoURL;
+            }
+
+            else
+            {
+                videoPlayer.url = "https://archive.org/download/RickAstleyNeverGonnaGiveYouUp_201603/Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up.mp4";
+            }
+        
+        }
 
         // old url http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4
 

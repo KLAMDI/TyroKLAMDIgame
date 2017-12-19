@@ -905,6 +905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoToPlay: {fileID: 0}
+  videoURL: 
 --- !u!1 &1332100988
 GameObject:
   m_ObjectHideFlags: 0
